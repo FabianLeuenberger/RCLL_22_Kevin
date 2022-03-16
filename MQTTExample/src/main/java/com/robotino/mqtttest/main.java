@@ -32,7 +32,7 @@ public class main {
         SendMqtt sendMqtt = new SendMqtt(client, topicToSend);
         
         try {
-            sendMqtt.call();
+            sendMqtt.call(); // Sending data
         } catch (Exception ex) {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -40,7 +40,7 @@ public class main {
         
         try {
             ReceiveMqtt receiveMqtt = new ReceiveMqtt(client, topicToReceive);
-        } catch (InterruptedException ex) {
+        } catch (InterruptedException ex) { // Empfange von Daten not JSON
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
         }
 
