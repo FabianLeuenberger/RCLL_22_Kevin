@@ -26,9 +26,9 @@ public class ReceiveMqtt {// implements MqttCallback
             
             byte[] payload = msg.getPayload();
             
-            MyMessage msgSave = new MyMessage(payload);
-            MyMessage.addMsg(msgSave);
-            MyMessage.print();
+            ReceivedMessage msgSave = new ReceivedMessage(payload);
+            ReceivedMessage.addMsg(msgSave);
+            ReceivedMessage.print();
             
             receivedSignal.countDown();
         });    

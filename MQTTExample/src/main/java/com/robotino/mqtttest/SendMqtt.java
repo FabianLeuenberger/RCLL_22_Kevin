@@ -9,51 +9,73 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONObject;
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
 
 // https://www.baeldung.com/java-org-json
-
-
 
 /**
  *
  * @author Kevin Zahn
  */
-public class SendMqtt implements Callable<Void>{
-    
+public class SendMqtt implements Callable<Void> {
+
     IMqttClient client;
-    
+
     //byte[] payload = "Hallo".getBytes();
     //byte[] payload = "{robo:{ speed: 1000, posX: 5000, posY: 6000 }}".getBytes();
     //byte[] payload = "{robo:{speed: 1000}}".getBytes();
-    byte [] payload;
     String topic;
-    
-    public SendMqtt(IMqttClient client, String topic){
+
+    public SendMqtt(IMqttClient client, String topic) {
         this.client = client;
         this.topic = topic;
     }
 
     @Override
     public Void call() throws Exception {
-        if ( !client.isConnected()) {
+        if (!client.isConnected()) {
             System.err.println("can not connect for send data");
             return null;
         }
-        createJson3();
-        
+        byte[] payload = createJsonMsg();
+
         MqttMessage msg = new MqttMessage(payload);
         msg.setQos(0);
         msg.setRetained(true);
-        
+
         String s = new String(payload);
         System.out.println("publish: " + s);
-        
-        client.publish(topic,msg);        
-        return null; 
+
+        client.publish(topic, msg);
+        return null;
     }
-    
+
+    public byte [] createJsonMsg() {
+        byte [] payload;
+
+        JSONObject robo = new JSONObject();
+        robo.put("speed", new Integer(1000));
+        robo.put("xPos", new Integer(5000));
+        robo.put("yPos", new Integer(6000));
+
+        JSONObject codesys = new JSONObject();
+        codesys.put("griperClose", new Boolean(true));
+        codesys.put("xPos", new Integer(3000));
+        codesys.put("yPos", new Integer(4000));
+
+        JSONObject mainObj = new JSONObject();
+        mainObj.put("robo", robo);
+        mainObj.put("codesys", codesys);
+
+        payload = mainObj.toString().getBytes();
+
+        System.out.println(payload);
+        return payload;
+    }
+}
+    /* Exampel JSON generate JSON Message
     public void createJson1(){
         JSONObject obj = new JSONObject();
 
@@ -89,26 +111,7 @@ public class SendMqtt implements Callable<Void>{
         System.out.println(payload);
     }
     
-    public void createJson3(){
-        JSONObject robo = new JSONObject();
-        robo.put("speed", new Integer(1000));
-        robo.put("xPos", new Integer(5000));
-        robo.put("yPos", new Integer(6000));
-        
-        JSONObject codesys = new JSONObject();
-        codesys.put("griperClose", new Boolean(true));
-        codesys.put("xPos", new Integer(3000));
-        codesys.put("yPos", new Integer(4000));
 
-
-        JSONObject mainObj = new JSONObject();
-        mainObj.put("robo", robo);
-        mainObj.put("codesys", codesys);
-        
-        payload = mainObj.toJSONString().getBytes();
-
-        System.out.println(payload);
-    }
     
     public void createJson4(){
         JSONObject jo = new JSONObject();
@@ -138,7 +141,7 @@ public class SendMqtt implements Callable<Void>{
         //System.out.println(payload);
     }
 }
-
+*/
 
 /* Node-Red Module
 [

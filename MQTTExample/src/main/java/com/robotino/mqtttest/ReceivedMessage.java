@@ -6,26 +6,27 @@ package com.robotino.mqtttest;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 /**
  *
  * @author Kevin Zahn
  */
-public class MyMessage {
+public class ReceivedMessage {
     
-    public static ArrayList<MyMessage> msgs = new ArrayList<>();
+    public static ArrayList<ReceivedMessage> msgs = new ArrayList<>();
     
 
     private String msg;
+    private static int msgNr = 0;
     private LocalTime time;
     
-    public MyMessage(byte [] msg){
+    public ReceivedMessage(byte [] msg){
        this.msg = new String(msg);
        this.time = LocalTime.now();
+       this.msgNr++;
     }
     
-    public static void addMsg(MyMessage msgObj){
+    public static void addMsg(ReceivedMessage msgObj){
         msgs.add(msgObj);
     }
     
@@ -35,6 +36,10 @@ public class MyMessage {
 
     @Override
     public String toString() {
-        return "MyMessage{" + "msg=" + msg + ", time=" + time + '}';
-    } 
+        return "ReceivedMessage{" +
+                "msg='" + msg + '\'' +
+                ", time=" + time + '\'' +
+                "msgNr='" + msgNr + '\'' +
+                '}';
+    }
 }
