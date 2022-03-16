@@ -34,6 +34,7 @@ public class ReceivedMessage {
         System.out.println(msgs);
     }
 
+
     @Override
     public String toString() {
         return "ReceivedMessage{" +
