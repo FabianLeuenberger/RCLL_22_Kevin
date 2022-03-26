@@ -34,10 +34,8 @@ public class DriveMessage {
         robo.put("yPos", position[1]);
         robo.put("rPos", position[2]);
 
-
         JSONObject mainObj = new JSONObject();
         mainObj.put("robo" + this.roboNr, robo);
-
 
         payload = mainObj.toString().getBytes();
 

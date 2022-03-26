@@ -20,12 +20,9 @@ public class Main {
     Robo r0 = new Robo(0, 31, 0);
 
     public static void main(String[] args) {
-       //TestDrive td = new TestDrive();
-       //td.runTest();
 
         Main main = new Main();
         main.start();
-
 
     }
 
