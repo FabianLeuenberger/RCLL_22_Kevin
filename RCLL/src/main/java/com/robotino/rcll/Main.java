@@ -23,7 +23,10 @@ public class Main {
 
         Main main = new Main();
         main.start();
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     }
 
     public void start(){
