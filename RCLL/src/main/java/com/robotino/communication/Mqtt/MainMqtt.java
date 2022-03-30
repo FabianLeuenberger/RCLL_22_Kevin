@@ -32,7 +32,6 @@ public class MainMqtt {
         this.topicToReceive = topicToReceive;
 
         setupMqtt();
-
     }
 
     private void setupMqtt(){

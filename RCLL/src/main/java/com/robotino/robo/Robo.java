@@ -73,7 +73,6 @@ public class Robo {
     }
 
     public DriveMessage driveOriginPosition(int [] position){
-        //sendMessage.driveCommand(position);
         driveMessage = new DriveMessage(roboNr, position);
         return driveMessage;
 
